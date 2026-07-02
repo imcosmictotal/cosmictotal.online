@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>cosmictotal</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<link rel="icon" type="image/jpeg" href="assets/cosmictotalprofilepicture.jpeg">
+
+<style>
+:root{
+    --paper:#f8f4ed;
+    --ink:#2f2a25;
+    --muted:#7b7066;
+    --line: rgba(47,42,37,0.18);
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    background:var(--paper);
+    font-family:"Inter", sans-serif;
+    color:var(--ink);
+}
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10rem;
+    padding:2rem 6rem;
+    position:relative;
+}
+
+.hero-main{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+}
+
+.profile{
+    width:260px;
+    height:260px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid var(--ink);
+    margin-bottom:0.8rem;
+}
+
+.handle{
+    font-size:2.2rem;
+    font-weight:500;
+    letter-spacing:0.5px;
+}
+
+.meta{
+    color:var(--muted);
+    font-size:1rem;
+}
+
+.meta a{
+    color:var(--ink);
+    text-decoration:underline;
+    text-underline-offset:3px;
+}
+
+.meta a:hover{
+    color:var(--ink);
+}
+
+.social-links{
+    display:flex;
+    flex-direction:column;
+    gap:0.2rem;
+}
+
+.social-links p{
+    margin:0;
+}
+
+.social-links a{
+    color:var(--ink);
+    text-decoration:underline;
+    text-underline-offset:3px;
+}
+
+.hero-button{
+    margin-top:1rem;
+    display:inline-block;
+    padding:0.5rem 1.2rem;
+    font-size:0.95rem;
+    color:var(--ink);
+    text-decoration:none;
+    border:1px solid var(--ink);
+    border-radius:999px;
+}
+
+.hero-button:hover{
+    background:var(--ink);
+    color:var(--paper);
+}
+
+.hero-side{
+    max-width:650px;
+    text-align:left;
+    display:flex;
+    flex-direction:column;
+    gap:1.2rem;
+}
+
+/* ===== FIXED QUOTE ===== */
+.quote{
+    font-size:1.05rem;
+    line-height:1.4;
+    max-width:520px;
+}
+
+.quote-text{
+    display:block;
+}
+
+.quote-author{
+    display:block;
+    margin-top:0.4rem;
+    color:var(--muted);
+}
+
+/* scroll hint */
+.scroll-hint{
+    position:fixed;
+    left:50%;
+    bottom:2.2rem;
+    transform:translateX(-50%);
+    color:var(--muted);
+    font-size:0.9rem;
+    letter-spacing:0.08em;
+    opacity:0.75;
+    animation: floatHint 2.5s ease-in-out infinite;
+    transition: opacity 0.4s ease;
+    pointer-events:none;
+    z-index:10;
+}
+
+.scroll-hint.hidden{
+    opacity:0;
+    visibility:hidden;
+}
+
+@keyframes floatHint{
+    0%,100%{ transform:translateX(-50%) translateY(0); opacity:0.55; }
+    50%{ transform:translateX(-50%) translateY(6px); opacity:0.9; }
+}
+
+.section{
+    max-width:1000px;
+    margin:0 auto;
+    padding:6rem 2rem;
+}
+
+.section h2{
+    font-family:"Cormorant Garamond", serif;
+    font-size:2.7rem;
+    margin-bottom:1.2rem;
+    font-weight:600;
+}
+
+.section-subtitle{
+    font-size:0.55em;
+    font-style:italic;
+    color:var(--muted);
+    font-weight:400;
+    margin-left:0.6rem;
+}
+
+.divider{
+    height:1px;
+    background:linear-gradient(to right, transparent, var(--line), transparent);
+}
+
+.subsection{
+    margin-bottom:3.2rem;
+}
+
+.instrument-list{
+    padding-left:1.2rem;
+    margin:0;
+}
+
+.instrument-list li{
+    margin:.35rem 0;
+}
+
+@media (max-width: 900px){
+    .hero{
+        flex-direction:column;
+        gap:3rem;
+        padding:2rem;
+    }
+
+    .hero-side{
+        text-align:center;
+    }
+
+    .quote{
+        max-width:90%;
+        margin:0 auto;
+    }
+}
+
+#toast{
+    position:fixed;
+    bottom:2rem;
+    left:50%;
+    transform:translateX(-50%);
+    background:var(--ink);
+    color:var(--paper);
+    padding:0.6rem 1rem;
+    border-radius:999px;
+    font-size:0.9rem;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity 0.25s ease, transform 0.25s ease;
+}
+
+#toast.show{
+    opacity:1;
+    transform:translateX(-50%) translateY(-6px);
+}
+</style>
+</head>
+
+<body>
+
+<div class="hero">
+
+    <div class="hero-main">
+        <img src="assets/cosmictotalprofilepicture.jpeg" class="profile">
+        <div class="handle">@cosmictotal</div>
+
+        <div class="meta">15 • he/him</div>
+
+        <div class="meta">
+            <a href="#academics">student</a> • <a href="#musicianship">musician</a>
+        </div>
+
+        <a href="#socials" class="hero-button">Socials</a>
+    </div>
+
+    <div class="hero-side">
+
+        <div class="quote">
+            <span class="quote-text">
+                “Music expresses that which cannot be said and on which it is impossible to be silent.”
+            </span>
+            <span class="quote-author">— Victor Hugo</span>
+        </div>
+
+        <div class="location">
+            📍 Oklahoma City, Oklahoma, USA
+        </div>
+
+        <div class="currently">
+            currently: studying everyday to become a good student, and a great musician
+        </div>
+
+    </div>
+
+</div>
+
+<div class="scroll-hint">scroll for more ↓</div>
+
+<div class="divider"></div>
+
+<div id="about" class="section">
+<h2>About Me <span class="section-subtitle">get to know me</span></h2>
+
+<p>Im a student, gamer, and most importantly a musician. I love creating and listening to music.</p>
+<p>I also am a very good student, I always work hard and I maintain perfect grades and class rank..</p>  
+<p>Apart from school and music, I love playing games, talking with friends, and just learning stuff.</p>
+<p>I am also starting to get into studying languages. I am currently studying Spanish, but I plan to also learn ASL, Filipino, Vietnameese, and many more in the future.</p>
+</div>
+
+<div class="divider"></div>
+
+<div id="academics" class="section">
+<h2>Academics <span class="section-subtitle">(2022 - present)</span></h2>
+
+<p>GPA: 4.0+ weighted and unweighted</p>
+<p>Course Load: All Honors / AP</p>
+<p>Academic Record: Straight A's</p>
+<p>Rank: #1</p>
+<p>Vocational Training in Engineering</p>
+</div>
+
+<div class="divider"></div>
+
+<div id="musicianship" class="section">
+
+<h2>Musicianship <span class="section-subtitle">“Without music, life would be a mistake.” - Friedrich Nietzsche</span></h2>
+
+<div class="subsection">
+    <p><b>Ensemble / Performance</b></p>
+    <p>Concert Band · Jazz Band · Marching Band (2023 – present)</p>
+    <p>I have performed all around the country for hundreds of thousands of people, primarily in HBCU-Style/Show-Style Marching bands. </p>
+    <p>I also really enjoy concert band and jazz band. </p>
+</div>
+
+<div class="subsection">
+    <p><b>Instrumentation</b></p>
+
+    <p>I play many instruments at varying levels, and I plan to learn a lot more in the future.</p>
+
+    <ul class="instrument-list">
+        <li>Trumpet (primary)</li>
+        <li>Trombone</li>
+        <li>Mellophone (marching French horn)</li>
+        <li>Percussion</li>
+        <li>Guitar</li>
+        <li>Bass Guitar</li>
+        <li>Ukulele</li>
+    </ul>
+</div>
+
+<div class="subsection">
+    <p><b>Leadership</b></p>
+
+    <p><b>First Chair</b><br>
+    I show leadership by performance, and guiding other musicians/members to become better.</p>
+
+    <p><b>Section Leader / Assistant Section Leader</b><br>
+    I've managed multiple section members and led reherals and practices.</p>
+
+    <p><b>Student Mentor</b><br>
+    I help teach new/young students how to play and improve on their instrument.</p>
+</div>
+
+<div class="subsection">
+    <p><b>Theory, Composition, & Producing</b></p>
+    <p>I've been teaching myself music theory since 2023, and I started writing my own music.</p>
+    <p>I compose mainly for concert band, orchestra, or HBCU-style marching band.</p>
+    <p>I also produce more calm, lofi-type instrumentals. Soon some of them will be on streaming platforms.</p>
+</div>
+
+<div class="subsection">
+    <p><b>Social Media Management</b></p>
+    <p>I've started managing the social media acounts of multiple bands and ensambles. (2026 - present)</p>
+</div>
+
+</div>
+
+<div class="divider"></div>
+
+<div id="socials" class="section">
+<h2>Socials <span class="section-subtitle">get in touch</span></h2>
+
+<div class="social-links">
+
+    <p><a href="#" onclick="copyEmail(); return false;">Email</a> - cosmic@cosmictotal.online</p>
+
+    <p><a href="https://discord.com/users/735251995669168169" target="_blank">Discord</a> - @cosmictotal</p>
+
+    <p><a href="https://www.youtube.com/@cosmictotal" target="_blank">YouTube</a> - @cosmictotal</p>
+
+    <p><a href="https://namemc.com/profile/cosmictotal" target="_blank">Minecraft</a> - @cosmictotal</p>
+
+    <p><a href="https://steamcommunity.com/id/cosmictotal/" target="_blank">Steam</a> - @cosmictotal</p>
+
+    <p><a href="https://store.epicgames.com/u/60c083220fa84a53b048a6767b8528a4" target="_blank">Epic Games</a> - @cosmictotal</p>
+
+    <p><a href="https://www.roblox.com/users/546528934/profile" target="_blank">Roblox</a> - @1c0smic1</p>
+
+</div>
+</div>
+
+<script>
+function copyEmail(){
+    navigator.clipboard.writeText("cosmic@cosmictotal.online");
+
+    const toast = document.getElementById("toast");
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 1200);
+}
+
+const hint = document.querySelector(".scroll-hint");
+
+window.addEventListener("scroll", () => {
+    if (window.scrollY > 200) {
+        hint.classList.add("hidden");
+    } else {
+        hint.classList.remove("hidden");
+    }
+});
+</script>
+
+<div id="toast">Email copied to clipboard</div>
+
+</body>
+</html>
